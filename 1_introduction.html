@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <div id="app">
+    {{ message }}
+  </div>
+
+  <div id="app2">
+    {{ message }}
+  </div>
+
+  <div id="app3">
+    <span v-if="seen">Nou you can see me.</span>
+  </div>
+
+  <div id="app4">
+    <ol>
+      <li v-for="todo in todos">
+        {{ todo.text }}
+      </li>
+    </ol>
+  </div>
+
+  <div id="app5">
+    <p>{{ message }}</p>
+    <button v-on:click="reverseMessage">Reverse Message</button>
+  </div>
+
+  <div id="app6">
+    <p>{{ message }}</p>
+    <input v-model="message">
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app6',
+      data: {
+        message: 'What"s UP'
+      }
+    })
+    var app = new Vue({
+      el: '#app5',
+      data: {
+          message: 'Hello Vue.js!'
+      },
+      methods: {
+        reverseMessage: function() {
+          this.message = this.message.split('').reverse().join('')
+        }
+      }
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!'
+        }
+    });
+
+    app.message = 'I have changed the data'
+
+    var app2 = new Vue({
+      el: '#app2',
+      data: {
+        message: `You loaded this page on ${new Date().toLocaleString()}`
+      }
+    })
+
+    var app3 = new Vue({
+      el: '#app3',
+      data: {
+        seen: true
+      }
+    })
+
+    app3.seen = false
+
+    var app4 = new Vue({
+      el: '#app4',
+      data: {
+        todos: [
+          {text: 'Learn JavaScript'},
+          {text: 'Learn Vue'},
+          {text: 'Build Something Awesome'},
+        ]
+      }
+    })
+
+    app4.todos.push({ text: 'New Item' })
+  </script>
+</body>
+</html>
