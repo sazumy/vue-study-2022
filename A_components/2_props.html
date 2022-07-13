@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="component-props-demo">
+    <blog-post title="セロ弾きのゴーシュ"></blog-post>
+    <blog-post title="ミツバチハッチ"></blog-post>
+    <blog-post title="大きな栗の木の下で"></blog-post>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    Vue.component('blog-post', {
+      props: ['title'],
+      template: '<h3>{{ title }}</h3>'
+    })
+
+    new Vue({el: '#component-props-demo'})
+  </script>
+</body>
+</html>
