@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p>受け取るデータを親コンポーネントで直接指定した例</p>
+    <comp-child val="これは子A"></comp-child>
+    <comp-child val="これは子B"></comp-child>
+
+    <p>受け取るデータをデータバインディングで指定した例</p>
+    <child-comp :test="message"></child-comp>
+
+    <p>リストレンダリング</p>
+    <ul>
+      <child-list
+        v-for="item in list"
+        :key="item.id"
+        :name="item.name"
+        :hp="item.hp"
+      >
+      </child-list>
+    </ul>
+
+    <p>型指定</p>
+    <!-- NOTE: ちょっとうまく行ってないのでやり直し -->
+    <example :value="example"></example>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    Vue.component('comp-child', {
+      template: '<p>{{ val }}</p>',
+      // 受け取る属性名を指定する
+      props: ['val']
+    })
+
+    Vue.component('child-comp', {
+      template: '<p>{{ test }}</p>',
+      props: ['test']
+    })
+
+    Vue.component('child-list', {
+      template: '<li>{{ name }} HP.{{ hp }}</li>',
+      props: ['name', 'hp']
+    })
+
+    Vue.component('example', {
+      template: `<div>
+        <input
+        v-model="example"
+        @change="handleInput"
+        placeholder="edit me"
+        >
+      <p>Message is: {{ value }}</p>
+      </div>`,
+      props: {
+        value: {
+          type: [Number],
+          default: 100
+        }
+      }
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        message: "data.messageでデータを渡す",
+        list: [
+          {id: 1, name: 'スライム', hp: '100'},
+          {id: 2, name: 'ゴブリン', hp: '200'},
+          {id: 3, name: 'ドラゴン', hp: '500'},
+        ],
+        example: 0
+      },
+      methods: {
+        handleInput: function(e) {
+            e.target.value
+          }
+      }
+    })
+  </script>
+</body>
+</html>
