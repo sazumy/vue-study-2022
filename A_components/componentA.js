@@ -1,3 +1,5 @@
-let componentA = {text: 'もう少しコンポーネントになれたらやり直し'}
+let componentA = {
+  template: '<p>こちらはコンポーネントA</p>',
+}
 
 export default componentA
