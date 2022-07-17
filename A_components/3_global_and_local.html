@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <my-component></my-component>
+  </div>
+
+  <div id="app2">
+    <!-- NOTE: こっちはキャメルだとエラーになる -->
+    <my-local-component></my-local-component>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // NOTE: グローバルコンポーネントとしての登録
+    Vue.component('my-component', {
+      template: '<p>{{ message }}</p>',
+      // NOTE: データは関数でないといけない
+      data: function() {
+        return {
+          message: 'こちらはグローバルコンポーネント'
+        }
+      }
+    })
+
+    var vm = new Vue({
+      el: '#app'
+    })
+
+    // NOTE: ローカルコンポーネントとしての登録
+    var myLocalComponent = {
+      template: '<p>こちらはローカルコンポーネント</p>',
+    }
+
+    new Vue({
+      el: '#app2',
+      components: {
+        // NOTE: 左辺がキャメルでも大丈夫（もちろんケバブでもOK）
+        'myLocalComponent': myLocalComponent
+      },
+      data: {
+        // NOTE: これだとmessageをmyLocalComponentに渡せないみたい
+        massage: 'new Vueしている方からメッセージを渡す'
+      }
+    })
+  </script>
+</body>
+</html>
