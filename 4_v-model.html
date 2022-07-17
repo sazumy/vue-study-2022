@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="app">
+      <!-- 普通の入力 -->
+      <input
+        v-model="message"
+        @change="handleInput"
+        placeholder="edit me"
+        >
+      <p>Message is: {{ message }}</p>
+
+      <!-- チェックボックス -->
+      <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+      <label for="jack">Jack</label>
+      <input type="checkbox" id="john" value="John" v-model="checkedNames">
+      <label for="john">John</label>
+      <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+      <label for="mike">Mike</label>
+      <br>
+      <p>Checked names:</p>
+      <ul >
+        <li
+          v-for="name in checkedNames"
+          :key="name"
+        >{{ name }}</li>
+      </ul>
+
+      <!-- ラジオボタン -->
+      <input type="radio" id="one" value="One" v-model="picked">
+      <label for="one">One</label>
+      <br>
+      <input type="radio" id="two" value="Two" v-model="picked">
+      <label for="two">Two</label>
+      <br>
+      <span>Picked: {{ picked }}</span>
+
+      <!-- セレクトボックス -->
+      <select v-model="selected">
+        <option disabled value="">Please select one</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+      </select>
+      <span>Selected: {{ selected }}</span>
+
+      <!-- 修飾子 -->
+      <p>input後ではなく、change後に同期します</p>
+      <input v-model.lazy="msg">
+      <p>{{ msg }}</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello!',
+          msg: 'lazy input',
+          checkedNames: [],
+          picked: '',
+          selected: ''
+        },
+        methods: {
+          handleInput: function(e) {
+            e.target.value
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
