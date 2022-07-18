@@ -10,6 +10,12 @@
 
   <div id="app">
     <comp-child @child-event="parentMethod"></comp-child>
+    <comp-child-list
+      v-for="item in list"
+      :key="item.id"
+      v-bind="item"
+      @attack="handleAttack"
+    ></comp-child-list>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -24,12 +30,45 @@
       }
     })
 
+    Vue.component('comp-child-list', {
+      template: `
+      <li>{{ name }} HP.{{ hp }}
+        <button v-on:click="doAttack">攻撃する</button>
+      </li>`,
+      props: {
+        id: Number,
+        name: String,
+        hp: Number
+      },
+      methods: {
+        // NOTE: 子コンポーネントのクリックイベントでdoAttackメソッドを発火させ、それを持って親コンポーネントの'attackメソッドを呼び出す'
+        doAttack: function() {
+          // NOTE: 第二引数には自らのIDを指定し、attackメソッドの引数として渡す。
+          this.$emit('attack', this.id)
+        }
+      }
+    })
+
     var vm = new Vue({
       el: '#app',
+      data: {
+        list: [
+          { id: 1, name: 'スライム', hp: 100 },
+          { id: 2, name: 'ゴブリン', hp: 200 },
+          { id: 3, name: 'ドラゴン', hp: 500 }
+        ]
+      },
       methods: {
         parentMethod: function() {
           // NOTE: 子コンポーネントで発生したchild-eventを検知してparentMethodを発火させる
           alert('イベントをキャッチ！')
+        },
+        handleAttack: function(id) {
+          var item = this.list.find(function (el) {
+            return el.id === id
+          })
+          // HPが0より多ければ10減らす
+          if (item !== undefined && item.hp > 0) item.hp -= 10
         }
       }
     })
