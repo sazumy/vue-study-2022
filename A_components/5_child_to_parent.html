@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app">
+    <comp-child @child-event="parentMethod"></comp-child>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    Vue.component('comp-child', {
+      template: '<button @click="handleClick">イベント発火</button>',
+      methods: {
+        handleClick: function() {
+          // NOTE: 子コンポーネントのchild-compのクリックイベントでchild-eventを発火
+          this.$emit('child-event')
+        }
+      }
+    })
+
+    var vm = new Vue({
+      el: '#app',
+      methods: {
+        parentMethod: function() {
+          // NOTE: 子コンポーネントで発生したchild-eventを検知してparentMethodを発火させる
+          alert('イベントをキャッチ！')
+        }
+      }
+    })
+  </script>
+</body>
+</html>
