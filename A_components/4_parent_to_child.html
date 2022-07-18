@@ -28,7 +28,7 @@
 
     <p>型指定</p>
     <!-- NOTE: ちょっとうまく行ってないのでやり直し -->
-    <example :value="example"></example>
+    <v-model-test-comp :value="sample"></v-model-test-comp>
 
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -49,20 +49,25 @@
       props: ['name', 'hp']
     })
 
-    Vue.component('example', {
+    Vue.component('v-model-test-comp', {
       template: `<div>
         <input
-        v-model="example"
+        v-model="sample"
         @change="handleInput"
         placeholder="edit me"
         >
-      <p>Message is: {{ value }}</p>
+      <p>Message is: {{ sample }}</p>
       </div>`,
       props: {
-        value: {
+        sample: {
           type: [Number],
           default: 100
         }
+      },
+      methods: {
+        handleInput: function(e) {
+            e.target.value
+          }
       }
     })
     var vm = new Vue({
@@ -74,13 +79,8 @@
           {id: 2, name: 'ゴブリン', hp: '200'},
           {id: 3, name: 'ドラゴン', hp: '500'},
         ],
-        example: 0
+        sample: 0
       },
-      methods: {
-        handleInput: function(e) {
-            e.target.value
-          }
-      }
     })
   </script>
 </body>
