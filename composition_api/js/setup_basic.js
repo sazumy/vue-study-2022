@@ -9,6 +9,7 @@ Vue.createApp({})
         current.value++;
       }
 
+      console.log(Vue.isRef(current))
       return{
         current,
         onClick
