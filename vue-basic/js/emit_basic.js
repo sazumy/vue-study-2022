@@ -13,7 +13,7 @@ Vue.createApp({
     }
   }
 })
-.component('my-counter', {
+.component('my-counter', { // ここから下は子コンポーネント
   props: ['step'],
   emits: ['plusMinus'],
   // onclickはキャメルでもかける。ただし、methodsとメソッド名は揃える
