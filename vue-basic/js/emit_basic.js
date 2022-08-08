@@ -15,7 +15,17 @@ Vue.createApp({
 })
 .component('my-counter', { // ここから下は子コンポーネント
   props: ['step'],
-  emits: ['plusMinus'],
+  // emits: ['plusMinus'],
+  emits: {
+    plusMinus(step) { // $emitオブジェクトの第二引数で渡された値が受け取れる
+      if (step && Number.isInteger(step)) {
+        return true;
+      } else {
+        console.log('plusMinus event object must be integer.');
+        return false;
+      }
+    }
+  },
   // onclickはキャメルでもかける。ただし、methodsとメソッド名は揃える
   template: `<button type="button" @click="onclick">
     {{ step }}

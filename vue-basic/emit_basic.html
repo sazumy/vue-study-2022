@@ -9,7 +9,7 @@
   <p>現在値：{{current}}</p>
   <!-- plus-minusイベントを受け取ったら、onplusメソッドを実行する -->
   <my-counter step="1" v-on:plus-minus="onplus"></my-counter>
-  <!-- <my-counter step="hoge" v-on:plus-minus="onplus"></my-counter> 数字以外はNaNになる-->
+  <my-counter step="hoge" v-on:plus-minus="onplus"></my-counter>
   <my-counter step="2" v-on:plus-minus="onplus"></my-counter>
   <my-counter step="-1" v-on:plus-minus="onplus"></my-counter>
   <!-- <my-counter step="-1" v-on:plus-minus="onplus"
