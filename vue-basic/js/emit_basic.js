@@ -34,7 +34,10 @@ Vue.createApp({
     onclick() {
       // 第一引数にイベント名、第二引数に親コンポーネントに引き渡すデータ
       this.$emit('plusMinus', Number(this.step)) // Numberを入れないと、文字列として追加され、どんどん文字数が増えていく
+    },
+    onmounted(e) {
+      console.log(e)
     }
-  }
+  },
 })
 .mount('#app');
