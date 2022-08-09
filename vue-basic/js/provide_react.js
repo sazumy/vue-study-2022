@@ -2,12 +2,17 @@ Vue.createApp({})
   .component('my-parent', {
     data() {
       return {
-        title: 'Vue 3実践入門'
+        title: 'Vue 3実践入門',
+        book: {
+          // オブジェクトはここのデータを書き換えると変更される
+          title: 'test book2'
+        }
       };
     },    
     provide() {
       return {
-        title: Vue.computed(() => this.title)
+        title: Vue.computed(() => this.title),
+        book: this.book
       }
     },
     // provide: {
@@ -28,10 +33,11 @@ Vue.createApp({})
     `
   })
   .component('my-child', {
-    inject: ['title'],
+    inject: ['title', 'book'],
     template: `
       <div id="child">
-        {{ title.value }}←親での変更が配下要素に伝わっている
+        {{ title.value }}←親での変更が配下要素に伝わっている<br>
+        {{ book.title }}
       </div>
     `
   })
